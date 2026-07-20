@@ -30,7 +30,7 @@ int GetHeight(AVLNode *node)
 {
     return node ? node->height : 0;
 }
-int CalculateHeight(AVLNode *node)
+int UpdateHeight(AVLNode *node)
 {
     if (!node) {
         return 0;
@@ -55,8 +55,8 @@ AVLNode *LeftRotation(AVLNode *root)
     newRoot->left = root;
     root->right = newRootLSubtree;
 
-    root->height = CalculateHeight(root);
-    newRoot->height = CalculateHeight(newRoot);
+    root->height = UpdateHeight(root);
+    newRoot->height = UpdateHeight(newRoot);
 
     return newRoot;
 }
@@ -69,8 +69,8 @@ AVLNode *RightRotation(AVLNode *root)
     newRoot->right = root;
     root->left = newRootRSubtree;
 
-    root->height = CalculateHeight(root);
-    newRoot->height = CalculateHeight(newRoot);
+    root->height = UpdateHeight(root);
+    newRoot->height = UpdateHeight(newRoot);
 
     return newRoot;
 }
@@ -114,7 +114,7 @@ AVLNode *InsertNode(AVLNode *node, int value)
         return node;
     }
 
-    node->height = CalculateHeight(node);
+    node->height = UpdateHeight(node);
     node = BalanceNode(node);
 
     return node;
@@ -152,7 +152,7 @@ AVLNode *RemoveNode(AVLNode *node, int value)
     }
 
     if (node) {
-        node->height = CalculateHeight(node);
+        node->height = UpdateHeight(node);
         node = BalanceNode(node);
     }
 
